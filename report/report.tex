@@ -1,0 +1,87 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{vietnam}
+\usepackage{graphicx}
+\usepackage{fancybox}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{relsize}
+\usepackage{cases} 
+\usepackage[left=3cm, right=2.00cm, top=2.00cm, bottom=2.00cm]{geometry}
+\lstset{
+   %keywords={break,case,catch,continue,else,elseif,end,for,function,
+   %   global,if,otherwise,persistent,return,switch,try,while},
+   basicstyle=\ttfamily \fontsize{12}{15}\selectfont,   
+	% numbers=left,
+   frame=lrtb,
+tabsize=2
+}
+\usepackage{hyperref}
+\usepackage{float}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\usepackage[nottoc]{tocbibind}
+\usepackage[english]{babel}
+\usepackage{indentfirst}
+\addto\captionsenglish{%
+ \renewcommand\chaptername{Phần}
+ \renewcommand{\contentsname}{Mục lục} 
+ \renewcommand{\listtablename}{Danh sách bảng}
+ \renewcommand{\listfigurename}{Danh sách hình vẽ}
+ \renewcommand{\tablename}{Bảng}
+ \renewcommand{\figurename}{Hình}
+ \renewcommand{\bibname}{Tài liệu tham khảo}
+}
+\begin{document}
+\thispagestyle{empty}
+\thisfancypage{
+\setlength{\fboxrule}{1pt}
+\doublebox}{}
+\begin{center}
+{\fontsize{16}{19}\fontfamily{cmr}\selectfont TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI\\
+VIỆN CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG}\\
+\textbf{------------*******---------------}\\[1cm]
+\includegraphics[scale=0.13]{hust.jpg}\\[1.3cm]
+
+{\fontsize{32}{43}\fontfamily{cmr}\selectfont BÁO CÁO}\\[0.1cm]
+{\fontsize{38}{45}\fontfamily{cmr}\fontseries{b}\selectfont MÔN HỌC}\\[0.2cm]
+{\fontsize{19}{20}\fontfamily{phv}\selectfont Tính toán khoa học }\\[0.2cm]
+{\fontsize{13}{20}\fontfamily{cmr}\selectfont Đề tài: Mạng Google Inception trong bài toán phân loại}\\[2.5cm]
+\end{center}
+\hspace{1cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont \textbf{Nhóm sinh viên thực hiện:}
+
+\begin{longtable}{l c c}
+
+Họ và tên & MSSV  & Lớp\\
+Nguyễn Tuấn Đạt & 20130856 & CNTT2.02-K58 \\
+Đặng Quang Trung & 20134145 & CNTT2.02-K58 \\
+Phan Anh Tú & 20134501 & CNTT2.01-K58 \\
+\end{longtable}
+
+\hspace{0.6cm}\fontsize{14}{16}\fontfamily{cmr}\selectfont \textbf{Giảng viên môn học: }TS. Đinh Viết Sang \\[1.5cm]
+\begin{center}
+\fontsize{16}{19}\fontfamily{cmr}\selectfont Hà Nội 1--2017
+
+\end{center}
+\newpage
+
+\pdfbookmark{\contentsname}{toc}
+\tableofcontents
+\listoffigures
+
+
+\phantomsection
+\addcontentsline{toc}{chapter}{Lời cảm ơn}
+\chapter*{Lời cảm ơn}
+Chúng em xin chân thành cảm ơn Thầy giáo, TS. Đinh Viết Sang đã tận tình giảng dạy, hướng dẫn chúng em thực hiện đề tài này. Trong quá trình thực hiện, đề tài của chúng em không tránh khỏi những hạn chế, thiếu sót, chúng em rất mong nhận được những ý kiến đánh giá, nhận xét của Thầy để đề tài này có thể được hoàn thiện hơn.
+
+
+
+\begin{thebibliography}{9}
+\end{thebibliography}
+
+\end{document}
