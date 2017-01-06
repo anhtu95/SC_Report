@@ -93,8 +93,16 @@ Trong bối cảnh nghành công nghiệp công nghệ thông tin đang phát tr
 
 \chapter{Giới thiệu mạng CNN}
 
-\chapter{Inception Module}
-Trong phần này chúng em sẽ trình bày về kiến trúc của một inception module và sự khác biệt 
+\chapter{GoogleNet}
+Trong phần này chúng em sẽ trình bày về kiến trúc của mạng Google Inception (GoogleNet), nhưng trước hết trong phần đầu tiên chúng em sẽ giới thiệu tổng quan về mạng GoogleNet, mục đích khi thiết kế mạng, những ưu điểm của nó so với các mạng khác trong bài toán phân loại.
+
+\section{Tổng quan về GoogleNet}
+Inception là một biến thể của mạng CNN (a deep convolutional neural network architecture \cite{googlenet}), một trong những khác biệt lớn nhất của kiến trúc này là sự cải thiện của tài nguyên tính toán bên trong mạng (mặc dù mạng tăng cả về chiều sâu (số lượng tầng trong mạng) và chiều rộng (số lượng neural trong một tầng) nhưng chi phí tính toán vẫn không đổi (chi phí để học các trọng số trong mạng)) (Mạng GoogleNet trong ILSVRC 2014 (ImageNet Large-Scale Visual Recognition Challenge) có số lượng tham số ít hơn 12 lần với kiến trúc mạng đã chiến thắng năm 2012). 
+
+
+\section{Inception Module}	
+
+
 
 \begin{thebibliography}{9}
 \bibitem{googlenet} C. Szegedy, W. Liu, Y. Jia, P. Sermanet, S. Reed, D. Anguelov, D. Erhan, V. Vanhoucke, and A. Rabinovich. \textit{Going deeper with convolutions}
