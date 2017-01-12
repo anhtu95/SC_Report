@@ -89,7 +89,58 @@ Trong bối cảnh nghành công nghiệp công nghệ thông tin đang phát tr
 \par \textbf{Phần 1}
 \par \textbf{Phần 2} 
 
-\chapter{Giới thiệu mạng neural nhân tạo (ANN)}
+\chapter{Giới thiệu học sâu}
+\section{Mạng neuron nhận tạo}
+Mạng neuron nhân tạo là một mô hình tính toán mô phỏng các hệ thống neuron sinh học. Mạng neron mà một cấu trúc được tạo nên bởi một số lượng các neuron liên kết với nhau.\\
+
+Mỗi neuron thực hiện một tính toán cục bộ nhận đầu vào và đưa ra đầu ra tương ứng. Giá trị đầu ra của một neuron được xác định bởi : đặc tính vào ra, các liên kết của nó với neuron khác, có thể còn có các đầu vào bổ sung.
+
+Chức năng của một  mạng neuron được xác định bởi :
+\begin{itemize}
+\item Kiến trúc
+\item Đặc tính vào ra
+\item Chiến lược học
+\item Dữ liệu học 
+\end{itemize}
+
+Mạng neuron có khả năng học, nhớ lại, và khái quát hóa từ các dữ liệu học, bằng cách gán và điểu chỉnh các trọng số của các liên kết giữa các neuron.
+\section{Học sâu}
+Học sâu là một nhánh của học máy cơ sở trên một tập các thuật toán nhằm cố gắng mô hình hóa trừu tượng mức cáo trong dữ liệu bởi việc sử dụng với nhiều tầng xử lý. 
+
+\begin{figure}[H]
+\includegraphics[scale=0.45]{deeplearning.png}
+\caption{Mô tả mô hình một mạng neuron học sâu}
+
+Một ví dụ cụ thể nhất về học sâu đó là một mạng neuron nhiều tầng (MLP). Nếu ta coi mạng MLP là một hàm thì hàm đó là hàm hợp của rất nhiều các hàm đơn giản khác.
+\end{figure}
+
+Lịch sử xu hướng của học sâu:
+\begin{itemize}
+\item Học sâu xuất hiện từ xưa nhưng đã dẫn không còn phổ biến do nhiều lí do
+\item Học sâu đã trở lại  và trở nên rất hữu khi có rất nhiều dữ liệu để huấn luyện.
+\item Mô hình học sâu phát triển nhanh chóng theo thời gian khi cơ sở hạ tâng cho học sâu ngày càng được cải thiện. 
+\item Các vấn đề học sâu giải quyết được có độ phức tạp ngày càng tăng đi đôi với độ chính xác cũng vậy.
+\end{itemize}
+\section{Các thành phần quan trọng trong mô hình học sâu}
+\begin{itemize}
+\item Hàm mục tiêu:\\ Các hàm mục tiêu hay được sử dụng \begin{itemize}
+\item sigmoid
+\item tanh
+\item ReLU
+\item Maxout
+\item ELU
+\end{itemize}
+\item Chiến lược học: \begin{itemize}
+\item Stochastic Gradient Descent
+\item Mini-batch Gradient Descent
+\item SGD-Momentum
+\item SGD-Vanilla
+\item Adagrad
+\item AdaDelta
+\end{itemize}
+\item Kiến trúc mạng
+\item Thuật toán học: Hiện tại thuật toán lan truyền ngược vẫn là thuật toán được sử dụng rộng rãi và đem lại hiệu quả cao.
+\end{itemize}
 
 \chapter{Giới thiệu mạng CNN}
 
