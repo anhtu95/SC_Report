@@ -1,5 +1,6 @@
 \documentclass[a4paper,12pt]{report}
 \usepackage[utf8]{vietnam}
+\usepackage{}
 \usepackage{graphicx}
 \usepackage{fancybox}
 \usepackage{longtable}
@@ -98,7 +99,6 @@ Mạng neuron nhân tạo là một mô hình tính toán mô phỏng các hệ 
 \item Chiến lược học
 \item Dữ liệu học 
 \end{itemize}
-
 Mạng neuron có khả năng học, nhớ lại, và khái quát hóa từ các dữ liệu học, bằng cách gán và điểu chỉnh các trọng số của các liên kết giữa các neuron.
 \section{Học sâu}
 Học sâu là một nhánh của học máy trên cơ sở một tập các thuật toán nhằm cố gắng mô hình hóa trừu tượng mức cao trong dữ liệu bởi việc sử dụng với nhiều tầng xử lý. 
@@ -136,8 +136,8 @@ Một ví dụ cụ thể nhất về học sâu đó là một mạng neuron nh
 \item Thuật toán học: Hiện tại thuật toán lan truyền ngược vẫn là thuật toán được sử dụng rộng rãi và đem lại hiệu quả cao.
 \end{itemize}
 
+
 \chapter{Giới thiệu mạng CNN}\label{chap_CNN}
-Trong phần này, phần đầu chúng em sẽ giới thiệu khái quát về mạng CNN (\ref{sec_intro_cnn}) và sau đó sẽ đi chi tiết về các tầng trong kiến trúc mạng CNN (\ref{}).
 \section{Kiến trúc tổng quan của CNN}\label{sec_intro_cnn}
 Giống như mạng neuron thông thường đã được giới thiệu phần trước, CNN nhận đầu vào và biến đổi đầu vào đó thông qua một loạt các tầng ẩn. Mỗi tầng ẩn được tạo thành từ một tập các neuron, trong đó nếu như mạng neuron thông thường mỗi một neuron trong mỗi tầng ẩn được kết nối đầy đủ với các neuron thuộc tầng liền trước đó thì mỗi neuron trong tầng ẩn của mạng CNN sẽ không kết nối với toàn bộ các neuron thuộc tầng liền trước (đây chính là điểm khác biệt lớn nhất của CNN so với mạng neuron thông thường).
 \begin{figure}[H]
