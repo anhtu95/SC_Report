@@ -89,18 +89,193 @@ Trong bối cảnh nghành công nghiệp công nghệ thông tin đang phát tr
 \par \textbf{Phần 1}
 \par \textbf{Phần 2} 
 
-\chapter{Giới thiệu mạng neural nhân tạo (ANN)}
+\chapter{Giới thiệu học sâu}
+\section{Mạng neuron nhân tạo}
+Mạng neuron nhân tạo là một mô hình tính toán mô phỏng các hệ thống neuron sinh học. Mạng neuron mà một cấu trúc được tạo nên bởi một số lượng các neuron liên kết với nhau. Mỗi neuron thực hiện một tính toán cục bộ nhận đầu vào và đưa ra đầu ra tương ứng. Giá trị đầu ra của một neuron được xác định bởi : đặc tính vào ra, các liên kết của nó với neuron khác, có thể còn có các đầu vào bổ sung. Chức năng của một  mạng neuron được xác định bởi :
+\begin{itemize}
+\item Kiến trúc
+\item Đặc tính vào ra
+\item Chiến lược học
+\item Dữ liệu học 
+\end{itemize}
 
-\chapter{Giới thiệu mạng CNN}
+Mạng neuron có khả năng học, nhớ lại, và khái quát hóa từ các dữ liệu học, bằng cách gán và điểu chỉnh các trọng số của các liên kết giữa các neuron.
+\section{Học sâu}
+Học sâu là một nhánh của học máy trên cơ sở một tập các thuật toán nhằm cố gắng mô hình hóa trừu tượng mức cao trong dữ liệu bởi việc sử dụng với nhiều tầng xử lý. 
 
-\chapter{GoogleNet}
+\begin{figure}[H]
+\includegraphics[scale=0.45]{deeplearning.png}
+\caption{Mô tả mô hình một mạng neuron học sâu}
+\end{figure}
+Một ví dụ cụ thể nhất về học sâu đó là một mạng neuron nhiều tầng (MLP). Nếu ta coi mạng MLP là một hàm thì hàm đó là hàm hợp của rất nhiều các hàm đơn giản khác.
+\paragraph{Lịch sử xu hướng của học sâu:}
+\begin{itemize}
+\item Học sâu xuất hiện từ xưa nhưng đã dẫn không còn phổ biến do nhiều lí do
+\item Học sâu đã trở lại  và trở nên rất hữu khi có rất nhiều dữ liệu để huấn luyện.
+\item Mô hình học sâu phát triển nhanh chóng theo thời gian khi cơ sở hạ tâng cho học sâu ngày càng được cải thiện. 
+\item Các vấn đề học sâu giải quyết được có độ phức tạp ngày càng tăng đi đôi với độ chính xác cũng vậy.
+\end{itemize}
+\section{Các thành phần quan trọng trong mô hình học sâu}
+\begin{itemize}
+\item Hàm mục tiêu:\\ Các hàm mục tiêu hay được sử dụng \begin{itemize}
+\item sigmoid
+\item tanh
+\item ReLU
+\item Maxout
+\item ELU
+\end{itemize}
+\item Chiến lược học: \begin{itemize}
+\item Stochastic Gradient Descent
+\item Mini-batch Gradient Descent
+\item SGD-Momentum
+\item SGD-Vanilla
+\item Adagrad
+\item AdaDelta
+\end{itemize}
+\item Kiến trúc mạng
+\item Thuật toán học: Hiện tại thuật toán lan truyền ngược vẫn là thuật toán được sử dụng rộng rãi và đem lại hiệu quả cao.
+\end{itemize}
+
+\chapter{Giới thiệu mạng CNN}\label{chap_CNN}
+Trong phần này, phần đầu chúng em sẽ giới thiệu khái quát về mạng CNN (\ref{sec_intro_cnn}) và sau đó sẽ đi chi tiết về các tầng trong kiến trúc mạng CNN (\ref{}).
+\section{Kiến trúc tổng quan của CNN}\label{sec_intro_cnn}
+Giống như mạng neuron thông thường đã được giới thiệu phần trước, CNN nhận đầu vào và biến đổi đầu vào đó thông qua một loạt các tầng ẩn. Mỗi tầng ẩn được tạo thành từ một tập các neuron, trong đó nếu như mạng neuron thông thường mỗi một neuron trong mỗi tầng ẩn được kết nối đầy đủ với các neuron thuộc tầng liền trước đó thì mỗi neuron trong tầng ẩn của mạng CNN sẽ không kết nối với toàn bộ các neuron thuộc tầng liền trước (đây chính là điểm khác biệt lớn nhất của CNN so với mạng neuron thông thường).
+\begin{figure}[H]
+\includegraphics[scale=0.7]{img1.png}
+\caption{Mô hình tổng quan ANN vs CNN}
+\end{figure}
+Trong bài toán phân loại ảnh, mỗi tầng của CNN sẽ nhận đầu vào là một khối 3 chiều (width, height, depth) xử lý và đưa ra đầu ra cũng là khối 3 chiều và phụ thuộc vào các tham số của mỗi tầng mà kích thước đầu ra có thể biến đổi theo từng chiều. Trong kiến trúc CNN gồm 3 tầng chính đó là: Convolution Layer, Pooling Layer, Fully-connected Layer.
+
+\section{Convolution Layer (CONV)}\label{sec_intro_conv}
+Convolution Layer là tầng cốt lõi của mạng CNN \\ 
+
+\textbf{Tổng quan:} Tham số của lớp CONV bao gồm một tập hợp các bộ lọc. Mỗi bộ lọc là một không gian nhỏ chiều rộng và chiều cao là các tham số cần chọn và kéo dài qua toàn bộ chiều sâu của khối đầu vào. Mỗi một bộ lọc sẽ trượt trên toàn chiều rộng và chiều cao của khối đầu vào và tính toán các sản xuất nhân giữa các ô của bộ lọc và các đầu vào tại vị trí tương ứng mà bộ lọc trượt qua. \\ 
+
+\textbf{Quan điểm não:}  Mỗi mục trong khối lượng đầu ra 3D cũng có thể được hiểu như là một sản phẩm của một tế bào thần kinh mà nhìn vào chỉ một vùng nhỏ trong các tham số đầu vào. \\ 
+ 
+\textbf{Kết nối địa phương:} Khi làm việc với các đầu vào nhiều chiều như hình ảnh, sẽ không phù hợp nếu mỗi neuron ở tầng phía sau sẽ kết nối đầy đủ với toàn bộ các neuron thuộc tầng phía trước. Thay vào đó, chúng ta sẽ kết nối mỗi neuron ở tầng phía sau với một khu vực địa phương của khối đầu vào. Phạm vi không gian của kết nối này là một siêu tham số gọi là khu vực tiếp nhận (bằng với kích cỡ của bô lọc) và kết nối dọc theo trục chiều sâu của khối đầu vào.
+\begin{figure}[H]
+\includegraphics[scale=0.7]{img2.png}
+\caption{CONV Layer}
+\end{figure}
+\textbf{Sắp xếp không gian:} Không gian số lượng các neurons ở đầu ra của mỗi khối làm thế nào để sắp xếp chúng. Ở đây có 3 siêu tham số dùng để kiểm soát kích thước của khối lượng đầu ra:depth(độ sâu), stride(sải chân) vào đệm (zero-padding):
+\begin{itemize}
+\item[1. ] Thứ nhất, độ sâu của khối lượng đầu ra là một hyperparameter: nó tương ứng với số lượng bộ lọc chúng tôi muốn sử dụng, mỗi học tập để tìm kiếm một cái gì đó khác nhau trong các đầu vào.
+\item[2. ] Thứ hai, chúng ta phải xác định các stride mà chúng ta trượt lọc. Khi stride là 1 sau đó chúng tôi di chuyển các bộ lọc một điểm ảnh tại một thời điểm. Khi stride là 2 (hoặc khác thường 3 hoặc nhiều hơn, mặc dù điều này là hiếm trong thực tế) sau đó các bộ lọc nhảy 2 điểm ảnh tại một thời điểm khi chúng ta đẩy chúng xung quanh. Điều này sẽ tạo ra khối lượng sản lượng nhỏ không gian.
+\item[3. ] Thứ ba, đôi khi để thuân tiện hơn để lề bao quanh ngoài của ảnh với số không. Các kích thước này zero-padding là một hyperparameter. Điểm hay của zero-padding là nó sẽ cho phép chúng ta kiểm soát kích thước không gian của khối lượng đầu ra (thường gặp nhất như chúng ta sẽ thấy sớm, chúng ta sẽ sử dụng nó để bảo toàn chính xác kích thước không gian của khối lượng đầu vào để các đầu vào và đầu ra rộng và chiều cao đều giống nhau).
+\end{itemize} 
+
+\textbf{Tham số không gian:} Nó chỉ ra rằng chúng ta có thể làm giảm đáng kể số lượng các thông số bằng cách làm cho một giả định hợp lý: đó, nếu một tính năng rất hữu ích để tính toán tại một số vị trí không gian (x, y), sau đó nó nên cũng có ích để tính toán tại một vị trí khác nhau (x2 , y2). Nói cách khác, biểu thị một lát 2 chiều duy nhất của chiều sâu như một lát độ sâu. Trong thực tế trong quá trình lan truyền ngược, mỗi tế bào thần kinh trong khối lượng sẽ tính toán gradient cho trọng lượng của nó, nhưng các gradients sẽ được thêm lên trên mỗi miếng chiều sâu và chỉ cập nhật một bộ trọng lượng mỗi slice. \\
+ 
+\textbf{Tóm lại:}Lớp Conv Layer
+\begin{itemize}
+\item Đầu vào một khối lượng kích thước $W_1*H_1*D_1$.
+\item Yêu cầu 4 siêu tham số:
+\begin{itemize}
+\item Số bộ lọc K,
+\item Kích cỡ mỗi bộ lọc F,
+\item Bước sải S,
+\item Số lương của lề (zeros-padding) P
+\end{itemize}
+\item Tạo ra 1 khối có kích cỡ $W_2*H_2*D_2$
+\begin{itemize}
+\item $W_2= \frac{(W_2 - F + 2P)}{S} + 1$
+\item $H_2=\frac{(H_1 - F + 2P)}{S}+1$(chiều cao và chiều rộng tính như nhau bởi đối xứng).
+\item $D_2 = K$.
+\item Với chia sẻ tham số,$F*F*D_1$ trọng số/mỗi bộ lọc. Tổng trọng số là $(F*F*D_1)*K$ và K là biases.
+\item Trong khối lượng đầu ra,độ sâu lát thứ d(kích cỡ $W_2*H_2$) là kết quả của việc thực hiện một chập hợp lệ của bộ lọc thứ d với đầu vào có sải là S,và sau đó bù lại bởi bias thứ d.
+\end{itemize}
+\end{itemize}
+Một cài đặt thông thường các siêu tham só là $F = 3, S = 1, P= 1 $. Tuy nhiên, có những quy ước chung và quy tắc vận dụng mà thúc đẩy các siêu tham
+\begin{center}
+\begin{figure}[H]
+\includegraphics[scale=0.7]{img3.png}
+\caption{Ví dụ CONV}
+\end{figure}
+\end{center}
+\section{Pooling Layer}
+Nó được phổ biến định kỳ thêm một layer Pooling ở giữa lớp Conv liên tiếp trong một kiến trúc ConvNet. Chức năng của nó là để dần dần làm giảm kích thước không gian của các đại diện để giảm số lượng các thông số và tính toán trong mạng, và vì thế để kiểm soát cũng overfitting. Các Pooling lớp hoạt động độc lập trên mỗi lát chiều sâu của đầu vào và thay đổi kích thước nó về không gian, sử dụng các hoạt động MAX. Các hình thức phổ biến nhất là một lớp tổng hợp với các bộ lọc kích thước $2*2$ áp dụng với một sải chân của 2 downsamples mỗi lát sâu trong đầu vào của 2 dọc theo cả hai chiều rộng và chiều cao,loại bỏ $75\%$ các kích hoạt.Mỗi hoạt động MAX sẽ trong trường hợp này là dùng một tối đa hơn 4 số (vùng $2*2$ ít trong một số lát chiều sâu). Chiều sâu vẫn không thay đổi. Tổng quát hơn, các lớp tổng hợp:
+\begin{itemize}
+\item Đầu vào là các khối kích thước $W_1*H_1*D_1$.
+\item Yêu cầu 2 tham số
+\begin{itemize}
+\item Phạm vi không gian(F)
+\item Các bước tiến(S)
+\end{itemize}
+\item Sản xuất một khối lượng kích thước $W_2*H_2*D_2$ ở đây:
+\begin{itemize}
+\item $W_2 =\frac{(W_1 - F)}{S} + 1$
+\item $H_2 =\frac{(H_1 - F)}{S} + 1$
+\item $D_2 = D_1$
+\end{itemize}
+\item Tham số zeros-padding khi nó tính một hàm cố định của các đầu vào
+\item Lưu ý rằng nó không phải là phổ biến để sử dụng zero-đệm cho việc kết hợp các lớp
+\end{itemize}
+\begin{center}
+\begin{figure}[H]
+\includegraphics[scale=0.8]{img4.png}
+\caption{Ví dụ CONV}
+\end{figure}
+\end{center}
+\section{Fully-connected Layer(kết nối đầy đủ)}
+Tế bào thần kinh trong một lớp đầy đủ kết nối có các kết nối đầy đủ với tất cả các kích hoạt trong lớp trước, như đã thấy trong thường xuyên Neural Networks. Kích hoạt của họ do đó có thể được tính toán với một phép nhân ma trận theo sau là một xu hướng bù đắp. Xem các Neural Network phần của các ghi chú để biết thêm thông tin.
+\section{Các lớp mẫu của mô hình về CNN}
+Các hình thức phổ biến nhất của một kiến trúc ConvNet xếp một vài lớp CONV-RELU, sau đó với lớp POOL, và lặp đi lặp lại mô hình này cho đến khi hình ảnh đã được sáp nhập về không gian đến một kích thước nhỏ. Tại một số điểm, nó được phổ biến để chuyển đổi sang lớp kết nối đầy đủ. Các lớp kết nối đầy đủ cuối cùng nắm giữ đầu ra, chẳng hạn như điểm số lớp. Nói cách khác, kiến trúc ConvNet phổ biến nhất theo mẫu sau: \\
+\\
+\small{
+\textbf{INPUT -> [[CONV -> RELU]*N -> POOL?]*M -> [FC -> RELU]*K -> FC}
+}
+\\ \\
+Ở đây * chỉ ra sự lặp lại, và POOL? chỉ ra một lớp tổng hợp tùy chọn. Hơn nữa, N >= 0(và thường N <= 3), M >= 0, K >= 0(và thường K < 3)
+
+
+\chapter{Google Inception}
 Trong phần này chúng em sẽ trình bày về kiến trúc của mạng Google Inception (GoogleNet), nhưng trước hết trong phần đầu tiên chúng em sẽ giới thiệu tổng quan về mạng GoogleNet, mục đích khi thiết kế mạng, những ưu điểm của nó so với các mạng khác trong bài toán phân loại.
 
-\section{Tổng quan về GoogleNet}
-Inception là một biến thể của mạng CNN (a deep convolutional neural network architecture \cite{googlenet}), một trong những khác biệt lớn nhất của kiến trúc này là sự cải thiện của tài nguyên tính toán bên trong mạng (mặc dù mạng tăng cả về chiều sâu (số lượng tầng trong mạng) và chiều rộng (số lượng neural trong một tầng) nhưng chi phí tính toán vẫn không đổi (chi phí để học các trọng số trong mạng)) (Mạng GoogleNet trong ILSVRC 2014 (ImageNet Large-Scale Visual Recognition Challenge) có số lượng tham số ít hơn 12 lần với kiến trúc mạng đã chiến thắng năm 2012). 
 
+\section{Ý tưởng cải tiến CNN \cite{slidesangdv}}
+Trong kiến trúc của CNN thì tầng Convolution là tầng trung tâm, nó quyết định độ phức tạp của mạng (số lượng các tham số, khối lượng tính toán). Trong phần này chúng em sẽ trình bày về lợi ích của việc sử dụng các filter có kích thước nhỏ thay vì sử dụng các filter có kích thước lớn trong tầng Convolution để giảm số lượng các tham số và khối lượng tính toán trong mạng.
+\par Giả sử ta đặt 2 tầng Convolution (với kích thước filter mỗi tầng là $3 \times 3$ và stride là 1) cạnh nhau (stack) thì mỗi neuron thuộc tầng convolution thứ 2 sẽ nhìn vào một vùng kích thước $5 \times 5$ trong khối đầu vào của tầng thứ convolution thứ nhất (Hình \ref{fig_2conv3x3}). 
+\begin{figure}[H]
+\includegraphics[scale=0.5]{2conv3x3.png}
+\caption{stack 2 tầng $3 \times 3$ convolution}
+\label{fig_2conv3x3}
+\end{figure}
+\par Thay vì stack 2 tầng convolution, nếu stack 3 tầng convolution (với kích thước filter mỗi tầng là $3 \times 3$ và stride là 1) thì mỗi neuron ở tầng convolution cuối cùng sẽ nhìn một vùng có kích thước $7 \times 7$ của khối đầu vào của tầng convolution đầu tiên (Hình \ref{fig_3conv3x3})
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{3conv3x3.png}
+\caption{stack 3 tầng $3 \times 3$ convolution}
+\label{fig_3conv3x3}
+\end{figure}
+\par Giả sử có một khối đầu vào có kích thước $H \times W \times C$ nếu đi vào một tầng convolution có $C$ filter kích thước $7 \times 7$ (với stride = 1 và padding để bảo toàn kích thước đầu vào) thì số lượng tham số sẽ là: $C \times (7 \times 7 \times C) = 49C^2$ và khối lượng tính toán (số lượng phép toán) là: $(H \times W \times C) \times (7 \times 7 \times C) = 49HWC^2$ còn nếu cũng với khối kích thước đầu vào đó nếu đi vào stack 3 tầng convolution cũng có $C$ filter (với stride = 1 và padding để bảo toàn kích thước đầu vào) nhưng với kích thước $3 \times 3$ ở mỗi tầng thì số lượng tham số sẽ là : $3 \times C \times (3 \times 3 \times C) = 27C^2$ và khối lượng tính toán là: $3 \times (H \times W \times C) \times (3 \times 3 \times C) = 27HWC^2$
+\par Qua ví dụ trên có thể thấy, thay vì sử dụng một tầng convolution với kích thước filter của tầng đó là lớn (ví dụ $7 \times 7$) thì việc stack nhiều tầng convultion có kích thước nhỏ hơn (ví dụ $3 \times 3$) sẽ giúp giảm số lượng các tham số và khối lượng tính toán của mạng. Thêm vào đó việc sử dụng nhiều tầng convolution sẽ giúp cho tính phi tuyến của hàm mà mạng học được tăng lên. 
 
-\section{Inception Module}	
+\section{Inception Module \cite{googlenet}}	
+\par Như vậy việc sử dụng một tầng convolution với kích thước lớn sẽ tương đương với việc stack nhiều tầng convolution có kích thước nhỏ trên khía cạnh nhìn dữ liệu đầu vào nhưng việc sử dụng các tầng convolution có kích thước nhỏ sẽ giúp giảm chi phí tính toán. Dựa vào lý thuyết đó Goolge đã đưa ra cấu trúc mang tên inception module (stack các filter nhỏ thay vì dùng filter lớn)
+\subsection{Inception module naive version}
+Inception module naive version stack tầng convolution với kích thước filter $1 \times 1$ với tầng convolution với kích thước filter $3 \times 3$ và tầng convolution kích thước filter $5 \times 5$.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.45]{inception_naive.png}
+\caption{Inception module naive version}
+\end{figure}
+\textbf{Filter concatenation}: để gộp các output của các tầng convolution.Ví dụ: Output của các tầng $1 \times 1$, $3 \times 3$, $5 \times 5$ convolution lần lượt là $H \times W \times C_1$, $H \times W \times C_3$, $H \times W \times C_5$ thì output của inception module là $H \times W \times (C_1+C_3+C_5)$
+\subsection{Inception module với kỹ thuật giảm chiều}
+Để giảm chi phí tính toán, trước khi tính toán với các filter lớn ($3\times 3$ và $5 \times 5$) thì sử dụng các filter kích thước $1 \times 1$ để giảm chiều dữ liệu sẽ giúp cho giảm chi phí tính toán (số lượng tham số, khối lượng tính toán) (Ví dụ: Hình \ref{fig_reduce1x1})
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{reduce_1x1.png}
+\caption{Giảm chiều dữ liệu với filter $1 \times 1$}
+\label{fig_reduce1x1}
+\end{figure}
+\par Dựa vào tính chất đó, trong Inception module naive version, trước khi tính áp dụng các filter $3 \times 3$, $5 \times 5$ lên input, ta sẽ giảm chiều input qua các filter $1 \times 1$ (Hình \ref{fig_inception_reduce})
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.45]{inception_reduce.png}
+\caption{Inception module với kỹ thuật giảm chiều}
+\label{fig_inception_reduce}
+\end{figure}
 
 
 
@@ -110,6 +285,8 @@ Inception là một biến thể của mạng CNN (a deep convolutional neural n
 \bibitem{rethinking} C. Szegedy, V. Vanhoucke, S. Ioffe, J. Shlens, and Z. Wojna. \textit{Rethinking the inception architecture for computer vision}
 
 \bibitem{inceptionv4} C. Szegedy, S. Ioffe, and V. Vanhoucke. \textit{Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning}
+
+\bibitem{slidesangdv} Slide DeepLearning, Thầy Đinh Viết Sang 
 
 \end{thebibliography}
 
