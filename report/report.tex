@@ -230,37 +230,17 @@ Các hình thức phổ biến nhất của một kiến trúc ConvNet xếp m�
 
 
 \chapter{Google Inception}
-Trong phần này chúng em sẽ trình bày về kiến trúc của mạng Google Inception (GoogleNet), nhưng trước hết trong phần đầu tiên chúng em sẽ giới thiệu tổng quan về mạng GoogleNet, mục đích khi thiết kế mạng, những ưu điểm của nó so với các mạng khác trong bài toán phân loại.
-
-
-\section{Ý tưởng cải tiến CNN \cite{slidesangdv}}
-Trong kiến trúc của CNN thì tầng Convolution là tầng trung tâm, nó quyết định độ phức tạp của mạng (số lượng các tham số, khối lượng tính toán). Trong phần này chúng em sẽ trình bày về lợi ích của việc sử dụng các filter có kích thước nhỏ thay vì sử dụng các filter có kích thước lớn trong tầng Convolution để giảm số lượng các tham số và khối lượng tính toán trong mạng.
-\par Giả sử ta đặt 2 tầng Convolution (với kích thước filter mỗi tầng là $3 \times 3$ và stride là 1) cạnh nhau (stack) thì mỗi neuron thuộc tầng convolution thứ 2 sẽ nhìn vào một vùng kích thước $5 \times 5$ trong khối đầu vào của tầng thứ convolution thứ nhất (Hình \ref{fig_2conv3x3}). 
-\begin{figure}[H]
-\includegraphics[scale=0.5]{2conv3x3.png}
-\caption{stack 2 tầng $3 \times 3$ convolution}
-\label{fig_2conv3x3}
-\end{figure}
-\par Thay vì stack 2 tầng convolution, nếu stack 3 tầng convolution (với kích thước filter mỗi tầng là $3 \times 3$ và stride là 1) thì mỗi neuron ở tầng convolution cuối cùng sẽ nhìn một vùng có kích thước $7 \times 7$ của khối đầu vào của tầng convolution đầu tiên (Hình \ref{fig_3conv3x3})
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.4]{3conv3x3.png}
-\caption{stack 3 tầng $3 \times 3$ convolution}
-\label{fig_3conv3x3}
-\end{figure}
-\par Giả sử có một khối đầu vào có kích thước $H \times W \times C$ nếu đi vào một tầng convolution có $C$ filter kích thước $7 \times 7$ (với stride = 1 và padding để bảo toàn kích thước đầu vào) thì số lượng tham số sẽ là: $C \times (7 \times 7 \times C) = 49C^2$ và khối lượng tính toán (số lượng phép toán) là: $(H \times W \times C) \times (7 \times 7 \times C) = 49HWC^2$ còn nếu cũng với khối kích thước đầu vào đó nếu đi vào stack 3 tầng convolution cũng có $C$ filter (với stride = 1 và padding để bảo toàn kích thước đầu vào) nhưng với kích thước $3 \times 3$ ở mỗi tầng thì số lượng tham số sẽ là : $3 \times C \times (3 \times 3 \times C) = 27C^2$ và khối lượng tính toán là: $3 \times (H \times W \times C) \times (3 \times 3 \times C) = 27HWC^2$
-\par Qua ví dụ trên có thể thấy, thay vì sử dụng một tầng convolution với kích thước filter của tầng đó là lớn (ví dụ $7 \times 7$) thì việc stack nhiều tầng convultion có kích thước nhỏ hơn (ví dụ $3 \times 3$) sẽ giúp giảm số lượng các tham số và khối lượng tính toán của mạng. Thêm vào đó việc sử dụng nhiều tầng convolution sẽ giúp cho tính phi tuyến của hàm mà mạng học được tăng lên. 
-
 \section{Inception Module \cite{googlenet}}	
-\par Như vậy việc sử dụng một tầng convolution với kích thước lớn sẽ tương đương với việc stack nhiều tầng convolution có kích thước nhỏ trên khía cạnh nhìn dữ liệu đầu vào nhưng việc sử dụng các tầng convolution có kích thước nhỏ sẽ giúp giảm chi phí tính toán. Dựa vào lý thuyết đó Goolge đã đưa ra cấu trúc mang tên inception module (stack các filter nhỏ thay vì dùng filter lớn)
+Mục đích chính của các kiến mạng neuron là trích rút các đặc trưng của dữ liệu đầu vào. Thông thường, dữ liệu đầu vào thường có cấu trúc thưa (ví dụ đầu vào là ảnh cần trích rút các điểm ảnh đặc trưng của ảnh đầu vào trong số nhiều điểm ảnh nhiễu (điểm ảnh không phải là trọng tâm của ảnh)). Nếu như trong kiến trúc của mạng CNN, mỗi tầng convolution chỉ có một tập các filter có kích thước cố định trượt trên không gian đầu vào thì ý tưởng trong kiến trúc inception là để trích rút hết các đặc trưng của đầu vào thay vì nhìn dữ liệu theo 1 cách ở mỗi tầng (sử dụng các filter có kích thước cố định) thì sẽ nhìn dữ liệu theo nhiều cách (sử dụng các filter có kích thước khác nhau để trượt qua không gian đầu vào). Để đảm bảo việc sử dụng các filter có kích thước khác nhau tại mỗi tầng mà vẫn đảm bảo độ phức tạp tính toán của mạng, kiến trúc inception đã sử dụng kỹ thuật giảm chiều dữ liệu trước khi tính toán với filter lớn (chi phí tính toán cao). Các filter ở mỗi tầng sẽ được gộp lại và được gọi là inception module.
+
 \subsection{Inception module naive version}
-Inception module naive version stack tầng convolution với kích thước filter $1 \times 1$ với tầng convolution với kích thước filter $3 \times 3$ và tầng convolution kích thước filter $5 \times 5$.
+Trong phiên bản này, chỉ cân nhắc đến việc nhìn dữ liệu theo nhiều cách khác nhau bằng cách sử dụng các filter có kích thước khác nhau tại cùng một tầng mà chưa tính đến việc giảm chiều dữ liệu trước khi tính toán phức tạp. 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.45]{inception_naive.png}
 \caption{Inception module naive version}
 \end{figure}
-\textbf{Filter concatenation}: để gộp các output của các tầng convolution.Ví dụ: Output của các tầng $1 \times 1$, $3 \times 3$, $5 \times 5$ convolution lần lượt là $H \times W \times C_1$, $H \times W \times C_3$, $H \times W \times C_5$ thì output của inception module là $H \times W \times (C_1+C_3+C_5)$
+Trong đó \textbf{Filter concatenation} để gộp các output của các tầng convolution.Ví dụ: Output của các tầng $1 \times 1$, $3 \times 3$, $5 \times 5$ convolution lần lượt là $H \times W \times C_1$, $H \times W \times C_3$, $H \times W \times C_5$ thì output của inception module là $H \times W \times (C_1+C_3+C_5)$
 \subsection{Inception module với kỹ thuật giảm chiều}
 Để giảm chi phí tính toán, trước khi tính toán với các filter lớn ($3\times 3$ và $5 \times 5$) thì sử dụng các filter kích thước $1 \times 1$ để giảm chiều dữ liệu sẽ giúp cho giảm chi phí tính toán (số lượng tham số, khối lượng tính toán) (Ví dụ: Hình \ref{fig_reduce1x1})
 \begin{figure}[H]
@@ -277,6 +257,31 @@ Inception module naive version stack tầng convolution với kích thước fil
 \label{fig_inception_reduce}
 \end{figure}
 
+\section{Inception Module v2 \cite{rethinking}}
+\subsection{Cải tiến Inception module \cite{slidesangdv}}
+\par Giả sử ta đặt 2 tầng Convolution (với kích thước filter mỗi tầng là $3 \times 3$ và stride là 1) cạnh nhau (stack) thì mỗi neuron thuộc tầng convolution thứ 2 sẽ nhìn vào một vùng kích thước $5 \times 5$ trong khối đầu vào của tầng thứ convolution thứ nhất (Hình \ref{fig_2conv3x3}). 
+\begin{figure}[H]
+\includegraphics[scale=0.5]{2conv3x3.png}
+\caption{stack 2 tầng $3 \times 3$ convolution}
+\label{fig_2conv3x3}
+\end{figure}
+\par Thay vì stack 2 tầng convolution, nếu stack 3 tầng convolution (với kích thước filter mỗi tầng là $3 \times 3$ và stride là 1) thì mỗi neuron ở tầng convolution cuối cùng sẽ nhìn một vùng có kích thước $7 \times 7$ của khối đầu vào của tầng convolution đầu tiên (Hình \ref{fig_3conv3x3})
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{3conv3x3.png}
+\caption{stack 3 tầng $3 \times 3$ convolution}
+\label{fig_3conv3x3}
+\end{figure}
+\par Giả sử có một khối đầu vào có kích thước $H \times W \times C$ nếu đi vào một tầng convolution có $C$ filter kích thước $7 \times 7$ (với stride = 1 và padding để bảo toàn kích thước đầu vào) thì số lượng tham số sẽ là: $C \times (7 \times 7 \times C) = 49C^2$ và khối lượng tính toán (số lượng phép toán) là: $(H \times W \times C) \times (7 \times 7 \times C) = 49HWC^2$ còn nếu cũng với khối kích thước đầu vào đó nếu đi vào stack 3 tầng convolution cũng có $C$ filter (với stride = 1 và padding để bảo toàn kích thước đầu vào) nhưng với kích thước $3 \times 3$ ở mỗi tầng thì số lượng tham số sẽ là : $3 \times C \times (3 \times 3 \times C) = 27C^2$ và khối lượng tính toán là: $3 \times (H \times W \times C) \times (3 \times 3 \times C) = 27HWC^2$
+\par Qua ví dụ trên có thể thấy, thay vì sử dụng một tầng convolution với kích thước filter của tầng đó là lớn (ví dụ $7 \times 7$) thì việc stack nhiều tầng convultion có kích thước nhỏ hơn (ví dụ $3 \times 3$) sẽ giúp giảm số lượng các tham số và khối lượng tính toán của mạng. Thêm vào đó việc sử dụng nhiều tầng convolution sẽ giúp cho tính phi tuyến của hàm mà mạng học được tăng lên. Áp dụng nhận xét đó ta có cải tiến của inception module (Hình \ref{fig_inception_reduce}) bằng cách thay một tầng convoluiton với filter có kích thước $5 \times 5$ bằng 2 tầng convolution với filter ở mỗi tầng có kích thước $3 \times 3$ (Hình \ref{fig_replace_5x5vs3x3})
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.4]{replace_5x5vs3x3.png}
+\caption{Inception module khi thay 1 convolution $5 \times 5$ bằng 2 convolution $3 \times 3$}
+\label{fig_replace_5x5vs3x3}
+\end{figure}
+
+%\subsection{GoogLeNet}
 
 
 \begin{thebibliography}{9}
