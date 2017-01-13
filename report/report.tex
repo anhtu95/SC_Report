@@ -160,10 +160,8 @@ x \qquad \qquad \qquad  if x>0\\ \alpha (exp(x)-1) \quad if x \leq 0
 \item Khi đầu ra của một nút là đầu vào của nút ở cùng tẩng hoặc tầng trước thì đó là mạng phản hồi.
 \item Nếu tạo thành một chu trình thì đó là mạng hồi quy.
 \end{itemize}
-\paragraph{Thuật toán học}:  Với một mạng neuron lan truyền tiến, hiện tại thuật toán lan truyền ngược vẫn là thuật toán được sử dụng rộng rãi và đem lại hiệu quả cao.
-
-\paragraph{Chiến lược học}: 
-Với những bài toán phức tạp chiến lược học Gradient Descent tỏ ra rất chậm và hiệu quả không cao dưới đây là nhưng chiến lược học khác có tốc độ nhanh và đem lại hiệu quả không kém hơn Gradient Descent thông thường:
+\paragraph{Thuật toán học:} Với một mạng neuron lan truyền tiến, hiện tại thuật toán lan truyền ngược vẫn là thuật toán được sử dụng rộng rãi và đem lại hiệu quả cao.
+\paragraph{Chiến lược học:} Với những bài toán phức tạp chiến lược học Gradient Descent tỏ ra rất chậm và hiệu quả không cao dưới đây là nhưng chiến lược học khác có tốc độ nhanh và đem lại hiệu quả không kém hơn Gradient Descent thông thường:
 \begin{itemize}
 \item Stochastic Gradient Descent
 \item Mini-batch Gradient Descent
@@ -267,7 +265,7 @@ Các hình thức phổ biến nhất của một kiến trúc ConvNet xếp m�
 
 \chapter{Google Inception}
 \section{Inception Module \cite{googlenet}}	
-Mục đích chính của các kiến mạng neuron là trích rút các đặc trưng của dữ liệu đầu vào. Thông thường, dữ liệu đầu vào thường có cấu trúc thưa (ví dụ đầu vào là ảnh cần trích rút các điểm ảnh đặc trưng của ảnh đầu vào trong số nhiều điểm ảnh nhiễu (điểm ảnh không phải là trọng tâm của ảnh)). Nếu như trong kiến trúc của mạng CNN, mỗi tầng convolution chỉ có một tập các filter có kích thước cố định trượt trên không gian đầu vào thì ý tưởng trong kiến trúc inception là để trích rút hết các đặc trưng của đầu vào thay vì nhìn dữ liệu theo 1 cách ở mỗi tầng (sử dụng các filter có kích thước cố định) thì sẽ nhìn dữ liệu theo nhiều cách (sử dụng các filter có kích thước khác nhau để trượt qua không gian đầu vào). Để đảm bảo việc sử dụng các filter có kích thước khác nhau tại mỗi tầng mà vẫn đảm bảo độ phức tạp tính toán của mạng, kiến trúc inception đã sử dụng kỹ thuật giảm chiều dữ liệu trước khi tính toán với filter lớn (chi phí tính toán cao). Các filter ở mỗi tầng sẽ được gộp lại và được gọi là inception module.
+Mục đích chính của các kiến mạng neuron là trích rút các đặc trưng của dữ liệu đầu vào. Thông thường, dữ liệu đầu vào thường có cấu trúc thưa (ví dụ đầu vào là ảnh cần trích rút các điểm ảnh đặc trưng của ảnh đầu vào trong số nhiều điểm ảnh nhiễu (điểm ảnh không phải là trọng tâm của ảnh)). Nếu như trong kiến trúc của mạng CNN, mỗi tầng convolution chỉ có một tập các filter có kích thước cố định trượt trên không gian đầu vào thì ý tưởng trong kiến trúc inception là để trích rút hết các đặc trưng của đầu vào thay vì nhìn dữ liệu theo 1 cách ở mỗi tầng (sử dụng các filter có kích thước giống nhau) thì sẽ nhìn dữ liệu theo nhiều cách (sử dụng các filter có kích thước khác nhau để trượt qua không gian đầu vào). Để đảm bảo việc sử dụng các filter có kích thước khác nhau tại mỗi tầng mà vẫn đảm bảo độ phức tạp tính toán của mạng, kiến trúc inception đã sử dụng kỹ thuật giảm chiều dữ liệu trước khi tính toán với filter lớn (chi phí tính toán cao). Các filter ở mỗi tầng sẽ được gộp lại và được gọi là inception module.
 
 \subsection{Inception module naive version}
 Trong phiên bản này, chỉ cân nhắc đến việc nhìn dữ liệu theo nhiều cách khác nhau bằng cách sử dụng các filter có kích thước khác nhau tại cùng một tầng mà chưa tính đến việc giảm chiều dữ liệu trước khi tính toán phức tạp. 
@@ -293,8 +291,17 @@ Trong đó \textbf{Filter concatenation} để gộp các output của các tầ
 \label{fig_inception_reduce}
 \end{figure}
 
-\section{Inception Module v2 \cite{rethinking}}
-\subsection{Cải tiến Inception module \cite{slidesangdv}}
+\subsection{GoogLeNet}
+GoogLeNet là tên mạng sử dụng kiến trúc inception trong cuộc thi ILSVRC 2014. GoogLeNet sử dụng kiến trúc inception với Inception module với kỹ thuật giảm chiều. Cụ thể kiến trúc mạng của GoogLeNet được mô tả trong hình \ref{fig_googLeNet}
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.65]{googLeNet.png}
+\caption{Kiến trúc GoogLeNet}
+\label{fig_googLeNet}
+\end{figure}
+
+\section{Inception v4 \cite{rethinking} \cite{inceptionv4}}
+\subsection{Cải tiến Inception module}
 \par Giả sử ta đặt 2 tầng Convolution (với kích thước filter mỗi tầng là $3 \times 3$ và stride là 1) cạnh nhau (stack) thì mỗi neuron thuộc tầng convolution thứ 2 sẽ nhìn vào một vùng kích thước $5 \times 5$ trong khối đầu vào của tầng thứ convolution thứ nhất (Hình \ref{fig_2conv3x3}). 
 \begin{figure}[H]
 \includegraphics[scale=0.5]{2conv3x3.png}
@@ -316,8 +323,39 @@ Trong đó \textbf{Filter concatenation} để gộp các output của các tầ
 \caption{Inception module khi thay 1 convolution $5 \times 5$ bằng 2 convolution $3 \times 3$}
 \label{fig_replace_5x5vs3x3}
 \end{figure}
+\par Như đã trình bày ở phần trên, việc thay một tầng convoluiton với filter có kích thước $5 \times 5$ bằng 2 tầng convolution với filter ở mỗi tầng có kích thước $3 \times 3$ sẽ giúp giảm tham số, giảm chi phí tính toán. Vậy tại sao không thay 1 tầng convolution với filter có kích thước $3 \times 3$ bằng 2 tầng convolution với filter ở mỗi tầng có kích thước $2 \times 2$.
+\par Cũng với ví dụ ở phần trên, giả sử có một khối đầu vào có kích thước $H \times W \times C$ nếu đi vào 2 tầng convolution có $C$ filter kích thước $2 \times 2$ (với stride = 1 và padding để bảo toàn kích thước đầu vào) thì số lượng tham số sẽ là: $2 \times C \times (2 \times 2 \times C) = 8C^2$ và khối lượng tính toán (số lượng phép toán) là: $2 \times (H \times W \times C) \times (2 \times 2 \times C) = 8HWC^2$. Nếu cũng với khối đầu vào đó đi vào 1 tầng convolution có $C$ filter kích thước $1 \times 3 $ sau đó đi vào 1 tầng convolution có $C$ filter kích thước $3 \times 1$ (cả 2 tầng đều cso tham số stride = 1 và padding để bảo toàn kích thước đầu vào)thì số lượng tham số là: $C \times 1 \times 3 \times C+ C \times 3 \times 1 \times C = $ và khối lượng tính toán là: $(H \times W \times C) \times (1 \times 3 \times C) + (H \times W \times C) \times (3 \times 1 \times C) = 6HWC^2$
 
-%\subsection{GoogLeNet}
+\par Như vậy, qua ví dụ trên ta có thể thấy, việc thay một tầng convolution có kích thước filter $3 \times 3$ bằng 2 tầng convolution có kích thước fiter ở mỗi tầng lần lượt là $1 \times 3$ và $3 \times 1$ sẽ tiết kiệm được số lượng tham số và khối lượng tính toán hơn việc thay một tầng convolution có kích thước filter $3 \times 3$ bằng 2 tầng convolution có kích thước fiter ở mỗi tầng là $2 \times 2$ (33\% của 2 filter $1 \times 3$ và $3 \times 1$ so với 11\% của 2 filter $2 \times 2$). Sau khi tách mỗi tầng convolution có kích thước filter $3 \times 3$ bằng 2 tầng convolution có kích thước fiter ở mỗi tầng lần lượt là $1 \times 3$ và $3 \times 1$ ta thu được inception module như hình \ref{fig_fac_3x3}
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.5]{fac_3x3.png}
+\caption{Inception module sau khi phân rã $3 \times 3$ convolution (n = 3)}
+\label{fig_fac_3x3}
+\end{figure}
+
+\subsection{Inception v4}
+Mạng inception v4 tích hợp inception module và các cải tiến của nó (Hình \ref{fig_inceptionv4}).
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.7]{inceptionv4.png}
+\caption{Kiến trúc mạng inception v4}
+\label{fig_inceptionv4}
+\end{figure}
+\par Inception-A là inception module sau khi thay 1 tầng convolution với filter $5\times 5$ bằng 2 tầng convolution với kích thước filter của mỗi tầng là $3 \times 3$ (Hình \ref{fig_inceptionA})
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.4]{inceptionA.jpg}
+\caption{Inception-A}
+\label{fig_inceptionA }
+\end{figure}
+\par Inception-B áp dụng kỹ thuật phân rã tầng convolution $n \times n$ thành các convolution $1 \times n$ và $n \times 1$ (với n = 7) (Hình \ref{fig_inceptionB})
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.5]{inceptionB.png}
+\caption{Inception-B}
+\label{fig_inceptionB}
+\end{figure}
 
 
 \begin{thebibliography}{9}
