@@ -171,40 +171,41 @@ x \qquad \qquad \qquad  if x>0\\ \alpha (exp(x)-1) \quad if x \leq 0
 \item AdaDelta
 \end{itemize}
 
-\chapter{Giới thiệu mạng CNN}\label{chap_CNN}
-\section{Kiến trúc tổng quan của CNN}\label{sec_intro_cnn}
-Giống như mạng neuron thông thường đã được giới thiệu phần trước, CNN nhận đầu vào và biến đổi đầu vào đó thông qua một loạt các tầng ẩn. Mỗi tầng ẩn được tạo thành từ một tập các neuron, trong đó nếu như mạng neuron thông thường mỗi một neuron trong mỗi tầng ẩn được kết nối đầy đủ với các neuron thuộc tầng liền trước đó thì mỗi neuron trong tầng ẩn của mạng CNN sẽ không kết nối với toàn bộ các neuron thuộc tầng liền trước (đây chính là điểm khác biệt lớn nhất của CNN so với mạng neuron thông thường).
+\chapter{Giới thiệu mạng tích chập(CNN)}\label{chap_CNN}
+\section{Tổng quan về mạng tích chập}\label{sec_intro_cnn}
+Mạng tích chập là một mạng neuron nhân tạo nhiều tầng. Nhưng điều khác biệt chính là ở mỗi neuron trong tầng ẩn của CNN sẽ không kết nối với toàn bộ các neuron thuộc tầng liền trước như mạng thông thường (đây chính là điểm khác biệt lớn nhất của CNN so với mạng neuron thông thường).
 \begin{figure}[H]
 \includegraphics[scale=0.7]{img1.png}
 \caption{Mô hình tổng quan ANN vs CNN}
 \end{figure}
-Trong bài toán phân loại ảnh, mỗi tầng của CNN sẽ nhận đầu vào là một khối 3 chiều (width, height, depth) xử lý và đưa ra đầu ra cũng là khối 3 chiều và phụ thuộc vào các tham số của mỗi tầng mà kích thước đầu ra có thể biến đổi theo từng chiều. Trong kiến trúc CNN gồm 3 tầng chính đó là: Convolution Layer, Pooling Layer, Fully-connected Layer.
+Cụ thể với bài toán phân loại ảnh, mỗi tầng của CNN sẽ nhận đầu vào là một khối 3 chiều (width, height, depth) xử lý và đưa ra đầu ra cũng là khối 3 chiều. Kích thước đầu ra của một tầng trong mạng CNN phụ thuộc vào các tham số được quy định cụ thể cho mỗi tầng. Trong kiến trúc CNN gồm 3 tầng chính đó là: Convolution Layer, Pooling Layer, Fully-connected Layer.
+\section{Đặc điểm của các tầng chính}
+\subsection{Convolution Layer (CONV)}\label{sec_intro_conv}
+Convolution Layer là tầng thể hiện được đặc điểm khác biệt lớn nhất giữa mô hình mạng tích chập với các mô hình mạng neuron khác.\\
 
-\section{Convolution Layer (CONV)}\label{sec_intro_conv}
-Convolution Layer là tầng cốt lõi của mạng CNN \\ 
+Tầng CONV sử dụng một tập các bộ lọc. Mỗi bộ lọc là một không gian nhỏ chiều rộng và chiều cao là các tham số cần chọn, trên toàn bộ chiều sâu của khối đầu vào. Mỗi một bộ lọc sẽ trượt trên toàn kích thước mặt của khối đầu vào và tính toán tại vị trí tương ứng mà bộ lọc trượt qua. \\ 
 
-\textbf{Tổng quan:} Tham số của lớp CONV bao gồm một tập hợp các bộ lọc. Mỗi bộ lọc là một không gian nhỏ chiều rộng và chiều cao là các tham số cần chọn và kéo dài qua toàn bộ chiều sâu của khối đầu vào. Mỗi một bộ lọc sẽ trượt trên toàn chiều rộng và chiều cao của khối đầu vào và tính toán các sản xuất nhân giữa các ô của bộ lọc và các đầu vào tại vị trí tương ứng mà bộ lọc trượt qua. \\ 
-
-\textbf{Quan điểm não:}  Mỗi mục trong khối lượng đầu ra 3D cũng có thể được hiểu như là một sản phẩm của một tế bào thần kinh mà nhìn vào chỉ một vùng nhỏ trong các tham số đầu vào. \\ 
+Ta có thể tưởng tượng ra rằng, mỗi khối trong một lần tính đầu ra được hiểu như là một sản phẩm của một tế bào thần kinh khi theo dõi một vùng nhỏ trong các tham số đầu vào. \\ 
  
-\textbf{Kết nối địa phương:} Khi làm việc với các đầu vào nhiều chiều như hình ảnh, sẽ không phù hợp nếu mỗi neuron ở tầng phía sau sẽ kết nối đầy đủ với toàn bộ các neuron thuộc tầng phía trước. Thay vào đó, chúng ta sẽ kết nối mỗi neuron ở tầng phía sau với một khu vực địa phương của khối đầu vào. Phạm vi không gian của kết nối này là một siêu tham số gọi là khu vực tiếp nhận (bằng với kích cỡ của bô lọc) và kết nối dọc theo trục chiều sâu của khối đầu vào.
+Khi làm việc với các đầu vào nhiều chiều như hình ảnh, nếu sử dụng kết nối đầy đủ khiến mạng sẽ trở nên quá phức tạp và cồng kềnh rất khó đê huấn luyện. Thay vào đó, chúng ta sẽ kết nối mỗi neuron ở tầng phía sau với một khu vực địa phương của khối đầu vào. Phạm vi không gian của kết nối này bằng với kích cỡ của bô lọc trên toàn bộ chiều sâu của khối đầu vào.
+
 \begin{figure}[H]
 \includegraphics[scale=0.7]{img2.png}
 \caption{CONV Layer}
 \end{figure}
-\textbf{Sắp xếp không gian:} Không gian số lượng các neurons ở đầu ra của mỗi khối làm thế nào để sắp xếp chúng. Ở đây có 3 siêu tham số dùng để kiểm soát kích thước của khối lượng đầu ra:depth(độ sâu), stride(sải chân) vào đệm (zero-padding):
+Không gian số lượng các neurons ở đầu ra được quy định bởi 3 tham số :depth(độ sâu), stride(bước trượt) và mức lề (zero-padding):
 \begin{itemize}
-\item[1. ] Thứ nhất, độ sâu của khối lượng đầu ra là một hyperparameter: nó tương ứng với số lượng bộ lọc chúng tôi muốn sử dụng, mỗi học tập để tìm kiếm một cái gì đó khác nhau trong các đầu vào.
-\item[2. ] Thứ hai, chúng ta phải xác định các stride mà chúng ta trượt lọc. Khi stride là 1 sau đó chúng tôi di chuyển các bộ lọc một điểm ảnh tại một thời điểm. Khi stride là 2 (hoặc khác thường 3 hoặc nhiều hơn, mặc dù điều này là hiếm trong thực tế) sau đó các bộ lọc nhảy 2 điểm ảnh tại một thời điểm khi chúng ta đẩy chúng xung quanh. Điều này sẽ tạo ra khối lượng sản lượng nhỏ không gian.
-\item[3. ] Thứ ba, đôi khi để thuân tiện hơn để lề bao quanh ngoài của ảnh với số không. Các kích thước này zero-padding là một hyperparameter. Điểm hay của zero-padding là nó sẽ cho phép chúng ta kiểm soát kích thước không gian của khối lượng đầu ra (thường gặp nhất như chúng ta sẽ thấy sớm, chúng ta sẽ sử dụng nó để bảo toàn chính xác kích thước không gian của khối lượng đầu vào để các đầu vào và đầu ra rộng và chiều cao đều giống nhau).
+\item[1. ] Độ sâu ở đầu ra tương ứng với số lượng bộ lọc được sử dụng, mỗi việc học là tìm kiếm một thứ khác nhau ở trong tập đầu vào .
+\item[2. ] Chúng ta phải xác định số bước nhảy khi trượt bộ lọc. Giả sử khi bước bằng 2 các bộ lọc sẽ nhảy 2 ô sau mỗi lần trượt. Điều này làm không gian đầu ra nhỏ đi.
+\item[3. ] Dữ liệu ở mép các ma trận rất dễ bị mất dần sau mỗi lần tích chập vì vậy ta sử dụng một kích thước lề bao quanh đầu vào, giá trị của lề đều bằng 0. Điểm hay của lề này là nó sẽ cho phép chúng ta kiểm soát kích thước không gian đầu ra.
 \end{itemize} 
 
-\textbf{Tham số không gian:} Nó chỉ ra rằng chúng ta có thể làm giảm đáng kể số lượng các thông số bằng cách làm cho một giả định hợp lý: đó, nếu một tính năng rất hữu ích để tính toán tại một số vị trí không gian (x, y), sau đó nó nên cũng có ích để tính toán tại một vị trí khác nhau (x2 , y2). Nói cách khác, biểu thị một lát 2 chiều duy nhất của chiều sâu như một lát độ sâu. Trong thực tế trong quá trình lan truyền ngược, mỗi tế bào thần kinh trong khối lượng sẽ tính toán gradient cho trọng lượng của nó, nhưng các gradients sẽ được thêm lên trên mỗi miếng chiều sâu và chỉ cập nhật một bộ trọng lượng mỗi slice. \\
+Trong mạng CNN ta luôn chỉ sử dụng một vector trọng số cho các neuron có cùng độ sâu. Điều này làm giảm đáng kể số lượng tham số trong mạng. Đây cũng chính là lý do nó được gọi là mạng tích chập.\\
  
 \textbf{Tóm lại:}Lớp Conv Layer
 \begin{itemize}
 \item Đầu vào một khối lượng kích thước $W_1*H_1*D_1$.
-\item Yêu cầu 4 siêu tham số:
+\item Yêu cầu 4 tham số:
 \begin{itemize}
 \item Số bộ lọc K,
 \item Kích cỡ mỗi bộ lọc F,
@@ -227,8 +228,8 @@ Một cài đặt thông thường các siêu tham só là $F = 3, S = 1, P= 1 $
 \caption{Ví dụ CONV}
 \end{figure}
 \end{center}
-\section{Pooling Layer}
-Nó được phổ biến định kỳ thêm một layer Pooling ở giữa lớp Conv liên tiếp trong một kiến trúc ConvNet. Chức năng của nó là để dần dần làm giảm kích thước không gian của các đại diện để giảm số lượng các thông số và tính toán trong mạng, và vì thế để kiểm soát cũng overfitting. Các Pooling lớp hoạt động độc lập trên mỗi lát chiều sâu của đầu vào và thay đổi kích thước nó về không gian, sử dụng các hoạt động MAX. Các hình thức phổ biến nhất là một lớp tổng hợp với các bộ lọc kích thước $2*2$ áp dụng với một sải chân của 2 downsamples mỗi lát sâu trong đầu vào của 2 dọc theo cả hai chiều rộng và chiều cao,loại bỏ $75\%$ các kích hoạt.Mỗi hoạt động MAX sẽ trong trường hợp này là dùng một tối đa hơn 4 số (vùng $2*2$ ít trong một số lát chiều sâu). Chiều sâu vẫn không thay đổi. Tổng quát hơn, các lớp tổng hợp:
+\subsection{Pooling Layer}
+Dịnh kỳ, tầng Pool được thêm ở giữa hai Conv liên tiếp trong một kiến trúc ConvNet. Chức năng của nó là để dần dần làm giảm kích thước không gian biểu diễn, giảm số lượng các trọng số và số lượng tính toán trong mạng, và vì thế nhằm kiểm soát overfitting. Các Pooling lớp hoạt động độc lập trên mỗi lát chiều sâu của đầu vào và thay đổi kích thước nó về không gian, sử dụng các toán tử MAX. Công thức phổ biến nhất là một lớp pool là sử dụng các bộ lọc kích thước $2*2$ stride 2. Với mỗi lát với kich thước là 2x2 ta sẽ loại bỏ $75\%$ số lượng các hoạt động.  Mỗi lần trượt MAX trong bốn số. Chiều sâu vẫn không thay đổi. Tổng quát hơn, các lớp tổng hợp:
 \begin{itemize}
 \item Đầu vào là các khối kích thước $W_1*H_1*D_1$.
 \item Yêu cầu 2 tham số
@@ -243,7 +244,7 @@ Nó được phổ biến định kỳ thêm một layer Pooling ở giữa lớ
 \item $D_2 = D_1$
 \end{itemize}
 \item Tham số zeros-padding khi nó tính một hàm cố định của các đầu vào
-\item Lưu ý rằng nó không phải là phổ biến để sử dụng zero-đệm cho việc kết hợp các lớp
+\item Chú ý không sử dụng padding-zero với tầng pool.
 \end{itemize}
 \begin{center}
 \begin{figure}[H]
@@ -251,8 +252,8 @@ Nó được phổ biến định kỳ thêm một layer Pooling ở giữa lớ
 \caption{Ví dụ CONV}
 \end{figure}
 \end{center}
-\section{Fully-connected Layer(kết nối đầy đủ)}
-Tế bào thần kinh trong một lớp đầy đủ kết nối có các kết nối đầy đủ với tất cả các kích hoạt trong lớp trước, như đã thấy trong thường xuyên Neural Networks. Kích hoạt của họ do đó có thể được tính toán với một phép nhân ma trận theo sau là một xu hướng bù đắp. Xem các Neural Network phần của các ghi chú để biết thêm thông tin.
+\subsection{Fully-connected Layer(Tầng kết nối đầy đủ)}
+Tế bào thần kinh trong một lớp đầy đủ kết nối có các kết nối đầy đủ với tất cả các kích hoạt trong lớp trước, như đã thấy trong thường xuyên Neural Networks. Hoạt động của chúng có thể được tính toán với một phép nhân ma trận có thể bù với một độ lệch nào đó.
 \section{Các lớp mẫu của mô hình về CNN}
 Các hình thức phổ biến nhất của một kiến trúc ConvNet xếp một vài lớp CONV-RELU, sau đó với lớp POOL, và lặp đi lặp lại mô hình này cho đến khi hình ảnh đã được sáp nhập về không gian đến một kích thước nhỏ. Tại một số điểm, nó được phổ biến để chuyển đổi sang lớp kết nối đầy đủ. Các lớp kết nối đầy đủ cuối cùng nắm giữ đầu ra, chẳng hạn như điểm số lớp. Nói cách khác, kiến trúc ConvNet phổ biến nhất theo mẫu sau: \\
 \\
