@@ -57,10 +57,12 @@ TS. Đinh Viết Sang
 \begin{frame}{Nội dung trình bày}
 \tableofcontents
 \end{frame}
+\section{Giới thiệu mạng neuron nhân tạo và học sâu}
+\subsection{Mạng neuron nhân tạo}
 \begin{frame}{Mạng neuron nhân tạo}
 \begin{itemize}
 \item Mạng neuron nhân tạo là một mô hình tính toán mô phỏng các hệ thống tương tự mạng neuron sinh học.
-\item Mỗi neuron thực hiện một tính toán cục bộ nhận đầu vào và đưa ra đầu ra tương ứng
+\item Mỗi neuron thực hiện một tính toán cục bộ nhận đầu vào và đưa ra đầu ra tương ứng.
 \item  Chức năng của một  mạng neuron được xác định bởi :
 \begin{itemize}
 \item Kiến trúc
@@ -70,15 +72,16 @@ TS. Đinh Viết Sang
 \end{itemize}
 \end{itemize}
 \end{frame}
+\subsection{Học sâu}
 \begin{frame}{Học sâu}
-Học sâu là một nhánh của học máy trên cơ sở một tập các thuật toán nhằm cố gắng mô hình hóa trừu tượng mức cao trong dữ liệu bởi việc sử dụng với nhiều tầng xử lý. \\
+Học sâu là một nhánh của học máy trên cơ sở một tập các thuật toán nhằm cố gắng mô hình hóa trừu tượng mức cao trong dữ liệu bởi việc sử dụng với nhiều tầng xử lý. 
 \begin{figure}[H]
 \includegraphics[scale=0.3]{deeplearning.png}
 \caption{Mô tả mô hình một mạng neuron học sâu}
 \end{figure}
 \end{frame}
 \begin{frame}{Các thành phần quang trọng trong một mô hình học sâu} 
-Hàm mục tiêu:\\ Các hàm mục tiêu hay được sử dụng \begin{itemize}
+Các hàm mục tiêu hay được sử dụng: \begin{itemize}
 \item sigmoid $\sigma =1/(1+e^-x)$
 \item tanh $ tanh(x)$
 \item ReLU $ max(0,x)$
@@ -94,7 +97,7 @@ x \qquad \qquad \qquad  if x>0\\ \alpha (exp(x)-1) \quad if x \leq 0
 
 \end{frame}
 \begin{frame}{Các thành phần quang trọng trong một mô hình học sâu}
-Kiến trúc mạng
+\textbf{Kiến trúc mạng}:
 \begin{figure}[H]
 \includegraphics[scale=0.3]{archneuron.png}
 \caption{Các kiến trúc mạng neuron điển hình}
@@ -107,18 +110,62 @@ Kiến trúc mạng
 \begin{itemize}
 \item Stochastic Gradient Descent
 \item Mini-batch Gradient Descent
-\item SGD-Momentum
-\item SGD-Vanilla
+\item Momentum
+\item Vanilla
 \item Adagrad
 \item AdaDelta
 \end{itemize}
 
 \end{frame}
+\section{Giới thiệu mạng tích chập}
 \begin{frame}{Mạng tích chập}
 \begin{itemize}
 \item Mạng tích chập là một mạng neuron nhân tạo nhiều tầng. Nhưng điều khác biệt chính là ở mỗi neuron trong tầng ẩn của CNN sẽ không kết nối với toàn bộ các neuron thuộc tầng liền trước như mạng thông thường.
 \item Trong kiến trúc CNN gồm 3 tầng chính đó là: Convolution Layer, Pooling Layer, Fully-connected Layer.
 \end{itemize}
+
+\end{frame}
+\subsection{Convolution Layer}
+\begin{frame}{Convolution Layer}
+Tầng CONV sử dụng một tập các bộ lọc. Mỗi bộ lọc là một không gian nhỏ chiều rộng và chiều cao là các tham số cần chọn, trên toàn bộ chiều sâu của khối đầu vào. Mỗi một bộ lọc sẽ trượt trên toàn kích thước mặt của khối đầu vào và tính toán tại vị trí tương ứng mà bộ lọc trượt qua.
+\begin{figure}[H]
+\includegraphics[scale=0.5]{img2.png}
+\caption{CONV Layer}
+\end{figure}
+
+\end{frame}
+\begin{frame}{Convolution Layer}
+\begin{itemize}
+\item	Không gian số lượng các neurons ở đầu ra được quy định bởi 3 tham số :depth(độ sâu), stride(bước trượt) và mức lề (zero-padding):
+\begin{itemize}
+\item[1. ] Độ sâu ở đầu ra tương ứng với số lượng bộ lọc được sử dụng.
+\item[2. ] Stride là số bước nhảy khi trượt bộ lọc.
+\item[3. ] Dữ liệu ở mép các ma trận rất dễ bị mất  dần qua mỗi tầng vì vậy sử dụng một kích thước lề bao quanh đầu vào, giá trị của lề đều bằng 0. 
+
+\end{itemize} 
+\item Trong mạng CNN ta luôn chỉ sử dụng một vector trọng số cho các neuron có cùng độ sâu.
+\end{itemize}
+\end{frame}
+\begin{frame}{Ví dụ}
+\begin{figure}[H]
+\includegraphics[scale=0.5]{img3.png}
+\caption{Ví dụ CONV}
+\end{figure}
+\end{frame}
+\subsection{Pooling Layer}
+\begin{frame}{Pooling Layer}
+\begin{figure}[H]
+\includegraphics[scale=0.5]{img4.png}
+\caption{Ví dụ CONV}
+\end{figure}
+\end{frame}
+\subsection{Kiến trúc tổng quát}
+\begin{frame}{Kiến trúc CNN}
+\small{
+\textbf{INPUT -> [[CONV -> RELU]*N -> POOL?]*M -> [FC -> RELU]*K -> FC}
+}
+
+\end{frame}
 
 
 \section{Google Inception}
@@ -231,45 +278,25 @@ Kiến trúc mạng
 \includegraphics[scale=0.3]{reduceB.png}
 \end{figure}
 \end{frame}
+\begin{frame}{Cảm ơn thầy và các bạn đã lắng nghe}
+\includegraphics[scale=0.6]{thanks.jpg}
+\end{frame}
+\begin{frame}{Tài liệu tham khảo}
+\begin{thebibliography}{9}
+\bibitem{googlenet} C. Szegedy, W. Liu, Y. Jia, P. Sermanet, S. Reed, D. Anguelov, D. Erhan, V. Vanhoucke, and A. Rabinovich. \textit{Going deeper with convolutions}
 
+\bibitem{rethinking} C. Szegedy, V. Vanhoucke, S. Ioffe, J. Shlens, and Z. Wojna. \textit{Rethinking the inception architecture for computer vision}
 
-\end{frame}
-\begin{frame}{Convolution Layer}
-Tầng CONV sử dụng một tập các bộ lọc. Mỗi bộ lọc là một không gian nhỏ chiều rộng và chiều cao là các tham số cần chọn, trên toàn bộ chiều sâu của khối đầu vào. Mỗi một bộ lọc sẽ trượt trên toàn kích thước mặt của khối đầu vào và tính toán tại vị trí tương ứng mà bộ lọc trượt qua.
-\begin{figure}[H]
-\includegraphics[scale=0.5]{img2.png}
-\caption{CONV Layer}
-\end{figure}
+\bibitem{inceptionv4} C. Szegedy, S. Ioffe, and V. Vanhoucke. \textit{Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning}
 
-\end{frame}
-\begin{frame}{Convolution Layer}
-\begin{itemize}
-\item	Không gian số lượng các neurons ở đầu ra được quy định bởi 3 tham số :depth(độ sâu), stride(bước trượt) và mức lề (zero-padding):
-\begin{itemize}
-\item[1. ] Độ sâu ở đầu ra tương ứng với số lượng bộ lọc được sử dụng.
-\item[2. ] Stride là số bước nhảy khi trượt bộ lọc.
-\item[3. ] Dữ liệu ở mép các ma trận rất dễ bị mất  dần qua mỗi tầng vì vậy sử dụng một kích thước lề bao quanh đầu vào, giá trị của lề đều bằng 0. 
+\bibitem{slidesangdv} Slide DeepLearning, Thầy Đinh Viết Sang 
 
-\end{itemize} 
-\item Trong mạng CNN ta luôn chỉ sử dụng một vector trọng số cho các neuron có cùng độ sâu.
-\end{itemize}
-\end{frame}
-\begin{frame}{Ví dụ}
-\begin{figure}[H]
-\includegraphics[scale=0.5]{img3.png}
-\caption{Ví dụ CONV}
-\end{figure}
-\end{frame}
-\begin{frame}{Pooling Layer}
-\begin{figure}[H]
-\includegraphics[scale=0.5]{img4.png}
-\caption{Ví dụ CONV}
-\end{figure}
-\end{frame}
-\begin{frame}{Kiến trúc CNN}
-\small{
-\textbf{INPUT -> [[CONV -> RELU]*N -> POOL?]*M -> [FC -> RELU]*K -> FC}
-}
+\bibitem{slidekhoattq} Slide mạng neuron, Thầy Thân Quang Khoát
+
+\bibitem{deeplearningbook}  http://www.deeplearningbook.org/
+\bibitem{CNN} Mạng CNN ,http://cs231n.github.io/convolutional-networks/
+\bibitem{inceptionsource} Inception v4 in keras 
+\end{thebibliography}
 
 \end{frame}
 \end{document}
