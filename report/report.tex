@@ -6,7 +6,8 @@
 \usepackage{longtable}
 \usepackage{listings}
 \usepackage{relsize}
-\usepackage{cases} 
+
+\usepackage{amsmath}
 \usepackage[left=3cm, right=2.00cm, top=2.00cm, bottom=2.00cm]{geometry}
 \lstset{
    %keywords={break,case,catch,continue,else,elseif,end,for,function,
@@ -92,7 +93,8 @@ Trong bối cảnh nghành công nghiệp công nghệ thông tin đang phát tr
 
 \chapter{Giới thiệu học sâu}
 \section{Mạng neuron nhân tạo}
-Mạng neuron nhân tạo là một mô hình tính toán mô phỏng các hệ thống neuron sinh học. Mạng neuron mà một cấu trúc được tạo nên bởi một số lượng các neuron liên kết với nhau. Mỗi neuron thực hiện một tính toán cục bộ nhận đầu vào và đưa ra đầu ra tương ứng. Giá trị đầu ra của một neuron được xác định bởi : đặc tính vào ra, các liên kết của nó với neuron khác, có thể còn có các đầu vào bổ sung. Chức năng của một  mạng neuron được xác định bởi :
+Mạng neuron sinh học là một cấu trúc được tạo nên bởi một số lượng các neuron liên kết với nhau. Dựa trên cấu trúc của mạng neuron sinh học,
+mạng neuron nhân tạo, một mô hình tính toán mô phỏng các hệ thống tương tự mạng neuron sinh học. Trong đấy,  mỗi neuron thực hiện một tính toán cục bộ nhận đầu vào và đưa ra đầu ra tương ứng.  Giá trị đầu ra của một neuron được xác định bởi : đặc tính vào ra, các liên kết của nó với neuron khác, có thể còn có các đầu vào bổ sung. Chức năng của một  mạng neuron được xác định bởi :
 \begin{itemize}
 \item Kiến trúc
 \item Đặc tính vào ra
@@ -101,30 +103,68 @@ Mạng neuron nhân tạo là một mô hình tính toán mô phỏng các hệ 
 \end{itemize}
 Mạng neuron có khả năng học, nhớ lại, và khái quát hóa từ các dữ liệu học, bằng cách gán và điểu chỉnh các trọng số của các liên kết giữa các neuron.
 \section{Học sâu}
-Học sâu là một nhánh của học máy trên cơ sở một tập các thuật toán nhằm cố gắng mô hình hóa trừu tượng mức cao trong dữ liệu bởi việc sử dụng với nhiều tầng xử lý. 
+Học sâu là một nhánh của học máy trên cơ sở một tập các thuật toán nhằm cố gắng mô hình hóa trừu tượng mức cao trong dữ liệu bởi việc sử dụng với nhiều tầng xử lý. \\
 
+Các thuật toán học máy truyền thống đã thành công trong rất nhiều vấn đề quan trọng, nhưng chúng vẫn chưa giải quyết được những vấn đề tâm điểm trong trí tuệ nhân tạo như nhận diện đối tượng, nhân diện giọng nói. Việc phát triển học sâu giúp chúng ta phần nào vượt qua được những vẫn đề chưa giải quyết được và tạo ra những thành công mới trong lĩnh vực trí tuệ nhân tạo.\\
+
+Với các dữ liệu như ảnh hoặc giọng nói, rất khó để trích xuất các đặc trưng từ dữ liệu thô, có quá nhiều nhân tố ẩn, chỉ có thể định nghĩa bằng các mô hình rất phức tạp, gần với mức con người mới có thể hiểu được dữ liệu, điều này là rất khó với các phương pháp truyền thống. 
+Học sâu giải quyết các vẫn đề trong biểu diễn học đó bằng cách giới thiệu các biểu diễn, cái mà có thể rõ ràng trong một tập các biểu diễn có mỗi quan hệ với nhau. \\
+
+Một ví dụ cụ thể nhất về học sâu đó là một mạng neuron nhiều tầng (MLP). Nếu ta coi mạng MLP là một hàm thì hàm đó là hàm hợp của rất nhiều các hàm đơn giản khác.
 \begin{figure}[H]
 \includegraphics[scale=0.45]{deeplearning.png}
 \caption{Mô tả mô hình một mạng neuron học sâu}
 \end{figure}
-Một ví dụ cụ thể nhất về học sâu đó là một mạng neuron nhiều tầng (MLP). Nếu ta coi mạng MLP là một hàm thì hàm đó là hàm hợp của rất nhiều các hàm đơn giản khác.
+
 \paragraph{Lịch sử xu hướng của học sâu:}
 \begin{itemize}
-\item Học sâu xuất hiện từ xưa nhưng đã dẫn không còn phổ biến do nhiều lí do
+\item Học sâu xuất hiện từ xưa nhưng đã dẫn không còn phổ biến do nhiều lí do.
 \item Học sâu đã trở lại  và trở nên rất hữu khi có rất nhiều dữ liệu để huấn luyện.
 \item Mô hình học sâu phát triển nhanh chóng theo thời gian khi cơ sở hạ tâng cho học sâu ngày càng được cải thiện. 
 \item Các vấn đề học sâu giải quyết được có độ phức tạp ngày càng tăng đi đôi với độ chính xác cũng vậy.
 \end{itemize}
 \section{Các thành phần quan trọng trong mô hình học sâu}
+Neuron là đơn vị nhỏ nhất của mạng neuron, chúng có cấu tạo như sau: 
+\begin{figure}[H]
+\includegraphics[scale=0.45]{aneuron.png}
+\caption{Cấu trúc của một neuron}
+
+\end{figure}
 \begin{itemize}
+\item Các tín hiệu đầu vào $x_0,x_1,...$
+\item Đầu vào tổng thể là tích hợp của các tín hiệu đầu vào $ \sum_i w_ix_i+b$ với  $w_i$ là trong số gán với đầu vào $x_i$
+
 \item Hàm mục tiêu:\\ Các hàm mục tiêu hay được sử dụng \begin{itemize}
-\item sigmoid
-\item tanh
-\item ReLU
-\item Maxout
-\item ELU
+\item sigmoid $\sigma =1/(1+e^-x)$
+\item tanh $ tanh(x)$
+\item ReLU $ max(0,x)$
+\item ELU \abovedisplayskip=0pt\relax
+\begin{equation}
+\begin{cases}
+x \qquad \qquad \qquad  if x>0\\ \alpha (exp(x)-1) \quad if x \leq 0
+\end{cases}
+\end{equation}
+\item Maxout $max(w_1^T x+b_1,w_2^T x+b_2) $
+
 \end{itemize}
-\item Chiến lược học: \begin{itemize}
+\end{itemize}
+
+
+\paragraph{Kiến trúc mạng} 
+\begin{figure}[H]
+\includegraphics[scale=0.45]{archneuron.png}
+\caption{Các kiến trúc mạng neuron điển hình}
+\end{figure}
+\begin{itemize}
+\item Một mạng neuron lân truyền tiến nếu không có bất kì đầu ra của nút nào là đầu vào của một neron cùng tầng.
+\item Khi đầu ra của một nút là đầu vào của nút ở cùng tẩng hoặc tầng trước thì đó là mạng phản hồi.
+\item Nếu tạo thành một chu trình thì đó là mạng hồi quy.
+\end{itemize}
+\paragraph{Thuật toán học}:  Với một mạng neuron lan truyền tiến, hiện tại thuật toán lan truyền ngược vẫn là thuật toán được sử dụng rộng rãi và đem lại hiệu quả cao.
+
+\paragraph{Chiến lược học}: 
+Với những bài toán phức tạp chiến lược học Gradient Descent tỏ ra rất chậm và hiệu quả không cao dưới đây là nhưng chiến lược học khác có tốc độ nhanh và đem lại hiệu quả không kém hơn Gradient Descent thông thường:
+\begin{itemize}
 \item Stochastic Gradient Descent
 \item Mini-batch Gradient Descent
 \item SGD-Momentum
@@ -132,10 +172,6 @@ Một ví dụ cụ thể nhất về học sâu đó là một mạng neuron nh
 \item Adagrad
 \item AdaDelta
 \end{itemize}
-\item Kiến trúc mạng
-\item Thuật toán học: Hiện tại thuật toán lan truyền ngược vẫn là thuật toán được sử dụng rộng rãi và đem lại hiệu quả cao.
-\end{itemize}
-
 
 \chapter{Giới thiệu mạng CNN}\label{chap_CNN}
 \section{Kiến trúc tổng quan của CNN}\label{sec_intro_cnn}
