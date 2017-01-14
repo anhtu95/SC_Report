@@ -173,7 +173,7 @@ x \qquad \qquad \qquad  if x>0\\ \alpha (exp(x)-1) \quad if x \leq 0
 
 \chapter{Giới thiệu mạng tích chập(CNN)}\label{chap_CNN}
 \section{Tổng quan về mạng tích chập}\label{sec_intro_cnn}
-Mạng tích chập là một mạng neuron nhân tạo nhiều tầng. Nhưng điều khác biệt chính là ở mỗi neuron trong tầng ẩn của CNN sẽ không kết nối với toàn bộ các neuron thuộc tầng liền trước như mạng thông thường (đây chính là điểm khác biệt lớn nhất của CNN so với mạng neuron thông thường).
+Mạng tích chập là một mạng neuron nhân tạo nhiều tầng. Nhưng điều khác biệt chính là ở mỗi neuron trong tầng ẩn của CNN sẽ không kết nối với toàn bộ các neuron thuộc tầng liền trước như mạng thông thường.
 \begin{figure}[H]
 \includegraphics[scale=0.7]{img1.png}
 \caption{Mô hình tổng quan ANN vs CNN}
@@ -243,13 +243,12 @@ Dịnh kỳ, tầng Pool được thêm ở giữa hai Conv liên tiếp trong m
 \item $H_2 =\frac{(H_1 - F)}{S} + 1$
 \item $D_2 = D_1$
 \end{itemize}
-\item Tham số zeros-padding khi nó tính một hàm cố định của các đầu vào
 \item Chú ý không sử dụng padding-zero với tầng pool.
 \end{itemize}
 \begin{center}
 \begin{figure}[H]
 \includegraphics[scale=0.8]{img4.png}
-\caption{Ví dụ CONV}
+\caption{Ví dụ Pool }
 \end{figure}
 \end{center}
 \subsection{Fully-connected Layer(Tầng kết nối đầy đủ)}
@@ -358,7 +357,14 @@ Mạng inception v4 tích hợp inception module và các cải tiến của nó
 \label{fig_inceptionB}
 \end{figure}
 
-
+\chapter{Thử nghiệm}
+Cài đặt thử nghiệm trên thư viện keras kết quả 10 epoch: 
+\begin{figure}[H]
+\centering 
+\includegraphics[scale=0.45]{sol2.png}
+\caption{Kết quả}
+\label{thunghiem}
+\end{figure}
 \begin{thebibliography}{9}
 \bibitem{googlenet} C. Szegedy, W. Liu, Y. Jia, P. Sermanet, S. Reed, D. Anguelov, D. Erhan, V. Vanhoucke, and A. Rabinovich. \textit{Going deeper with convolutions}
 
@@ -368,6 +374,12 @@ Mạng inception v4 tích hợp inception module và các cải tiến của nó
 
 \bibitem{slidesangdv} Slide DeepLearning, Thầy Đinh Viết Sang 
 
+\bibitem{slidekhoattq} Slide mạng neuron, Thầy Thân Quang Khoát
+
+\bibitem{deeplearningbook}  http://www.deeplearningbook.org/
+\bibitem{CNN} Mạng CNN ,http://cs231n.github.io/convolutional-networks/
+\bibitem{inceptionsource} Inception v4 in keras https://github.com/transcranial/inception-v4/blob/master/inception-v4.ipynb
+\bibitem{wiki} Mạng neuron nhân tạo, Wikimedia
 \end{thebibliography}
 
 \end{document}
