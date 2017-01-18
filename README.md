@@ -1,2 +1,2 @@
 # SC_Report
-scientist computation report
+Scientific Computing report (Term 20161)
